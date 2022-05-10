@@ -1,10 +1,13 @@
 require('dotenv').config({path: './config/.env'});
+require('./config/db');
 
 const express = require('express');
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// CONNECTION MONGO DB
 
 // SERVER 
 app.listen(process.env.PORT, () => {
