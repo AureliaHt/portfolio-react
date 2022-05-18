@@ -4,6 +4,7 @@ const AuthenticationForm = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState("");
 
   const userRef = useRef();
   const errorMessageRef = useRef();
@@ -18,9 +19,20 @@ const AuthenticationForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(user, password);
+    setSuccess(true);
+    setUser('');
+    setPassword('');
   };
 
   return (
+    <>
+    { success ? (
+      <section>
+      <a href="https://www.robinwieruch.de/react-router-redirect/">Tu es connecté, redirection</a>
+      </section>
+    ) : (
     <section>
       <div className="formHeading"><h2>Accès Admin</h2></div>
       <form onSubmit={handleSubmit}>
@@ -54,6 +66,8 @@ const AuthenticationForm = () => {
         {errorMessage}
       </p>
     </section>
+    )}
+    </>
   );
 };
 
