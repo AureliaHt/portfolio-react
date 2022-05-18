@@ -1,32 +1,60 @@
-import axios from "axios";
+import { useState, useRef, useEffect } from "react";
 
 const AuthenticationForm = () => {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-    };
+  const userRef = useRef();
+  const errorMessageRef = useRef();
 
-    return (
-        <form onSubmit={handleLogin}>
-            <input 
-                type="text" 
-                id="identifiant"
-                autoComplete="off"
-                placeholder="identifiant" 
-                required
-            />
-            <input 
-                type="password" 
-                id="password"
-                placeholder="mot de passe" 
-                required
-            />
-            <input 
-                type="submit" 
-                value="se connecter"
-            />
-        </form>
-    );
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setErrorMessage("");
+  }, [user, password]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
+  return (
+    <section>
+      <div className="formHeading"><h2>Connexion</h2></div>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="identifiant"></label>
+        <input
+          type="text"
+          id="identifiant"
+          ref={userRef}
+          autoComplete="off"
+          placeholder="identifiant"
+          onChange={(e) => setUser(e.target.value)}
+          value={user}
+          required
+        />
+        <label htmlFor="password"></label>
+        <input
+          type="password"
+          id="password"
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="mot de passe"
+          value={password}
+          required
+        />
+        <button> Connexion </button>
+      </form>
+      <p
+        ref={errorMessageRef}
+        className={errorMessage ? "errorMessage" : "offscreen"}
+        aria-live="assertive"
+      >
+        {errorMessage}
+      </p>
+    </section>
+  );
 };
 
 export default AuthenticationForm;

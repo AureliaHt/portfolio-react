@@ -1,0 +1,39 @@
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15%;
+    width: 30vw;
+    height: 30vh;
+    background-color: blueviolet;
+
+    .formHeading {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 3vh;
+        font-size: 22px;
+        letter-spacing: 0.25em;
+    }
+
+    form input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        width: 20rem;
+        height: 2.5rem;
+        border: none;
+        border-radius: 30px;
+        padding: 20px;
+    }
+
+    form button {
+        margin-top: 1rem;
+        
+    }
+}
