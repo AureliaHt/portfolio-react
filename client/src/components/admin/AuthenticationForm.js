@@ -22,7 +22,7 @@ const AuthenticationForm = () => {
 
   return (
     <section>
-      <div className="formHeading"><h2>Connexion</h2></div>
+      <div className="formHeading"><h2>Accès Admin</h2></div>
       <form onSubmit={handleSubmit}>
         <label htmlFor="identifiant"></label>
         <input
