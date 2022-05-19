@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Landing from "./components/Landing";
-import AuthenticationForm from "./components/admin/AuthenticationForm";
+import PortfolioSP from "./pages/PortfolioSP";
+import AdminAcces from "./pages/admin/AdminAcces";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<Landing/>}/>
-        <Route path="/" element={<Landing/>}/>
-        <Route path="/admin" element={<AuthenticationForm/>}/>
-        <Route path="*" element={<Landing/>}/>
+        <Route index element={<PortfolioSP/>}/>
+        <Route path="/" element={<PortfolioSP/>}/>
+        <Route path="/admin-acces" element={<AdminAcces/>}/>
+        <Route path="*" element={<PortfolioSP/>}/>
       </Routes>
     </BrowserRouter>
   );
