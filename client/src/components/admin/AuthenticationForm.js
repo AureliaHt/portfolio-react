@@ -1,10 +1,16 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import axios from '../api/axios';
+import AuthContext from "../context/AuthProvider";
+
+const LOGIN_URL = '/admindashboard'
 
 const AuthenticationForm = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState("");
+
+  const { setAuth } = useContext(AuthContext);
 
   const userRef = useRef();
   const errorMessageRef = useRef();
@@ -20,10 +26,31 @@ const AuthenticationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(user, password);
-    setSuccess(true);
-    setUser('');
-    setPassword('');
+      try {
+        const response = await axios.post(LOGIN_URL,
+          JSON.stringify({identifiant: user, password}),
+          {
+            headers: { 'Content-Type' : 'application/json'},
+            withCredentials: true
+          }
+        );
+        console.log(JSON.stringify(response?.data));
+        setUser('');
+        setPassword('');
+        setSuccess('');
+
+      } catch (error) {
+        if (!error?.response) {
+          setErrorMessage('Pas de réponse du serveur');
+        } else if (error.response?.status === 400) {
+          setErrorMessage('identifiant ou mot de passe incorrect');
+        } else if (error.response?.status === 401) {
+          setErrorMessage('Accès non autorisé');
+        } else {
+          setErrorMessage('La connexion a échoué');
+        }
+        errorMessageRef.current.focus();
+      }
   };
 
   return (
@@ -53,6 +80,7 @@ const AuthenticationForm = () => {
           id="password"
           onChange={(e) => setPassword(e.target.value)}
           placeholder="mot de passe"
+          autoComplete="off"
           value={password}
           required
         />
